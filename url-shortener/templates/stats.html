@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Stats - {{ url.short_code }}{% endblock %}
+{% block content %}
+<a href="{{ url_for('index') }}">← Back</a>
+<div class="card">
+  <p><strong>Short code:</strong> /{{ url.short_code }}</p>
+  <p><strong>Original:</strong> {{ url.original_url }}</p>
+  <p><strong>Total clicks:</strong> {{ url.clicks|length }}</p>
+  <p><strong>Created:</strong> {{ url.created_at.strftime("%Y-%m-%d %H:%M") }} UTC</p>
+</div>
+
+<h2>Clicks per day</h2>
+<canvas id="chart" height="100"></canvas>
+
+<h2>Recent clicks</h2>
+<table>
+  <tr><th>Time (UTC)</th><th>IP</th><th>Browser</th></tr>
+  {% for c in recent %}
+  <tr>
+    <td>{{ c.timestamp.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+    <td>{{ c.ip_address }}</td>
+    <td class="truncate">{{ c.user_agent }}</td>
+  </tr>
+  {% else %}
+  <tr><td colspan="3">No clicks yet.</td></tr>
+  {% endfor %}
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  new Chart(document.getElementById("chart"), {
+    type: "bar",
+    data: {
+      labels: {{ labels|tojson }},
+      datasets: [{ label: "Clicks", data: {{ values|tojson }}, backgroundColor: "#4f46e5" }]
+    },
+    options: { scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+  });
+</script>
+{% endblock %}

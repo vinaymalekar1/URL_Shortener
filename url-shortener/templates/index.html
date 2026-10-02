@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST" class="card">
+  <input type="url" name="url" placeholder="Paste a long URL (https://...)" required>
+  <input type="text" name="alias" placeholder="Custom alias (optional)" maxlength="10">
+  <button type="submit">Shorten</button>
+</form>
+
+<h2>Your links</h2>
+{% if urls %}
+<table>
+  <tr>
+    <th>Short link</th><th>Original</th><th>Clicks</th><th></th>
+  </tr>
+  {% for u in urls %}
+  <tr>
+    <td><a href="{{ url_for('redirect_to_url', code=u.short_code) }}" target="_blank">/{{ u.short_code }}</a></td>
+    <td class="truncate" title="{{ u.original_url }}">{{ u.original_url }}</td>
+    <td>{{ u.clicks|length }}</td>
+    <td>
+      <a href="{{ url_for('stats', code=u.short_code) }}">Stats</a>
+      <form method="POST" action="{{ url_for('delete', code=u.short_code) }}" style="display:inline">
+        <button class="danger" type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No links yet. Create your first one above!</p>
+{% endif %}
+{% endblock %}

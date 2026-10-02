@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; background: #f3f4f6; margin: 0; color: #111827; }
+.container { max-width: 850px; margin: 40px auto; padding: 0 16px; }
+h1 a { color: #4f46e5; text-decoration: none; }
+a { color: #4f46e5; }
+.card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-bottom: 24px; }
+form.card { display: flex; gap: 10px; flex-wrap: wrap; }
+input { padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; flex: 1; min-width: 180px; }
+button { padding: 10px 16px; background: #4f46e5; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+button.danger { background: #dc2626; padding: 4px 10px; margin-left: 8px; }
+table { width: 100%; background: #fff; border-collapse: collapse; border-radius: 10px; overflow: hidden; }
+th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+.truncate { max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.flash { padding: 12px; border-radius: 6px; margin-bottom: 16px; }
+.flash.success { background: #d1fae5; color: #065f46; }
+.flash.error { background: #fee2e2; color: #991b1b; }
